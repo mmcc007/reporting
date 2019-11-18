@@ -5,4 +5,4 @@ install:
 script:
   - pub get
   - script/code_coverage.sh
-after_success: bash <(curl -s https://codecov.io/bash) -f coverage/lcov.info
+after_success: bash <(curl -s https://codecov.io/bash) -f lcov.info
