@@ -7,9 +7,16 @@ description: A starting point for Dart libraries or applications.
 environment:
   sdk: '>=2.4.0 <3.0.0'
 
-#dependencies:
-#  path: ^1.6.0
+dependencies:
+  usage: 3.4.1
+  tool_base: ^1.9.5+2
 
 dev_dependencies:
   pedantic: ^1.7.0
   test: ^1.6.0
+  mockito: ^4.1.0
+  tool_base_test:
+    git: https://github.com/mmcc007/tool_base_test.git
+  args: ^1.5.1
+  quiver: ^2.0.5
+  meta: ^1.1.8

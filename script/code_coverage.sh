@@ -14,7 +14,9 @@ main() {
         runReport
         ;;
     *)
-        runTests
+        for test in `find . -name "*_test.dart"`; do
+            runTest $test
+        done
         ;;
   esac
 }
@@ -40,8 +42,8 @@ requires coverage package
 }
 
 # run tests with code coverage
-runTests () {
-  local test_path="test/fake_process_manager_test.dart"
+runTest () {
+  local test_path=$1
   local coverage_dir="coverage"
   # clear coverage directory
   rm -rf "$coverage_dir"
