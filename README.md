@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.com/mmcc007/reporting.svg?branch=master)](https://travis-ci.com/mmcc007/reporting)
+[![codecov](https://codecov.io/gh/mmcc007/reporting/branch/master/graph/badge.svg)](https://codecov.io/gh/mmcc007/reporting)
+
 A library for Dart developers.
 
 Created from templates made available by Stagehand under a BSD-style
