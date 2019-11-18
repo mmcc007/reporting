@@ -73,11 +73,25 @@ runTest () {
     --out="$coverage_dir"/lcov.info \
     --packages=.packages \
     --report-on=lib
+
+    combineCoverage 'coverage'
+}
+
+# combine coverage into a single file for reporting
+combineCoverage(){
+  local package_dir=$1
+  local repo_dir=.
+  escapedPath="$(echo $package_dir | sed 's/\//\\\//g')"
+  if [[ -d "coverage" ]]; then
+    # combine line coverage info from package tests to a common file
+    sed "s/^SF:lib/SF:$escapedPath\/lib/g" coverage/lcov.info >> $repo_dir/lcov.info
+    rm -rf "coverage"
+  fi
 }
 
 runReport() {
-  if [[ -f "coverage/lcov.info" ]]; then
-    genhtml -o coverage coverage/lcov.info --no-function-coverage -q
+  if [[ -f "lcov.info" ]]; then
+    genhtml -o coverage lcov.info --no-function-coverage -q
     open coverage/index.html
   else
     printError "Error: coverage has not been run.\n"

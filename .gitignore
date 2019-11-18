@@ -17,3 +17,4 @@ doc/api/
 
 # Coverage
 coverage/
+lcov.info
