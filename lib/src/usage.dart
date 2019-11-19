@@ -292,8 +292,6 @@ class _DefaultUsage implements Usage {
 
   @override
   void sendCommand(String command, {Map<String, String> parameters}) {
-    printStatus(
-        'sendCommand(): parameters=$parameters, suppressAnalytics=$suppressAnalytics');
     if (suppressAnalytics) {
       return;
     }
@@ -312,8 +310,7 @@ class _DefaultUsage implements Usage {
     String parameter, {
     Map<String, String> parameters,
   }) {
-    printStatus(
-        'sendEvent(): category=$category, parameter=$parameter, suppressAnalytics=$suppressAnalytics');
+
     if (suppressAnalytics) {
       return;
     }
@@ -324,8 +321,6 @@ class _DefaultUsage implements Usage {
       _reservedDimensions['localTime']: formatDateTime(systemClock.now()),
     };
 
-    print('calling _analytics.sendEvent()');
-    print('_analytics=$_analytics');
     _analytics.sendEvent(category, parameter, parameters: paramsWithLocalTime);
   }
 
@@ -336,8 +331,7 @@ class _DefaultUsage implements Usage {
     Duration duration, {
     String label,
   }) {
-    printStatus(
-        'sendTiming(): category=$category, variableName=$variableName, suppressAnalytics=$suppressAnalytics');
+
     if (suppressAnalytics) {
       return;
     }
@@ -352,8 +346,6 @@ class _DefaultUsage implements Usage {
 
   @override
   void sendException(dynamic exception) {
-    printStatus('sendException(): suppressAnalytics=$suppressAnalytics: ' +
-        exception.runtimeType.toString());
     if (suppressAnalytics) {
       return;
     }
@@ -369,7 +361,6 @@ class _DefaultUsage implements Usage {
     // TODO(devoncarew): This may delay tool exit and could cause some analytics
     // events to not be reported. Perhaps we could send the analytics pings
     // out-of-process from flutter_tools?
-    printStatus('ensureAnalyticsSent()');
 
     await _analytics.waitForLastPing(
         timeout: const Duration(milliseconds: 250));
