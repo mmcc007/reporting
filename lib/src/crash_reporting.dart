@@ -39,35 +39,57 @@ const String _kStackTraceFilename = 'stacktrace_file';
 /// * In tests call [initializeWith] and provide a mock implementation of
 ///   [http.Client].
 class CrashReportSender {
-  CrashReportSender._(
-    this._client,
-    this._crashServerHost,
-    this._crashEndpointPath,
-    this._productId,
-  );
+  static CrashReportSender _instance = CrashReportSender._();
 
-  static CrashReportSender _instance;
-
-  static CrashReportSender get instance =>
-      _instance ?? CrashReportSender._(http.Client(), '', '', '');
-
-  /// Overrides the default [http.Client] with [client] for testing purposes.
-  @visibleForTesting
-  static void initializeWith(
+  factory CrashReportSender(
     http.Client client,
     String crashServerHost,
     String crashEndpointPath,
     String productId,
   ) {
-    _instance = CrashReportSender._(
-        client, crashServerHost, crashEndpointPath, productId);
+    // creates instance if not already created and assigns var
+    _instance._client = client;
+    // assigns var to existing instance
+    _instance._crashServerHost = crashServerHost;
+    // assigns var to existing instance
+    _instance._crashEndpointPath = crashEndpointPath;
+    // assigns var to existing instance
+    _instance._productId = productId;
+
+    return _instance;
   }
 
-  final http.Client _client;
-  final Usage _usage = Usage.instance;
-  final String _crashServerHost;
-  final String _crashEndpointPath;
-  final String _productId;
+  CrashReportSender._(); // can do stuff once if needed
+
+//  CrashReportSender._(
+//    this._client,
+//    this._crashServerHost,
+//    this._crashEndpointPath,
+//    this._productId,
+//  );
+//
+//  static CrashReportSender _instance;
+//
+//  static CrashReportSender get instance =>
+//      _instance ?? CrashReportSender._(http.Client(), '', '', '');
+//
+//  /// Overrides the default [http.Client] with [client] for testing purposes.
+//  @visibleForTesting
+//  static void initializeWith(
+//    http.Client client,
+//    String crashServerHost,
+//    String crashEndpointPath,
+//    String productId,
+//  ) {
+//    _instance = CrashReportSender._(
+//        client, crashServerHost, crashEndpointPath, productId);
+//  }
+
+  http.Client _client;
+   Usage get _usage => Usage.instance;
+  String _crashServerHost;
+  String _crashEndpointPath;
+  String _productId;
 
   Uri get _baseUrl {
     final String overrideUrl =
