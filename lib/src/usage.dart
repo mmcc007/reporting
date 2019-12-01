@@ -199,7 +199,8 @@ class _DefaultUsage implements Usage {
   })  {
 //    final FlutterVersion flutterVersion = FlutterVersion.instance;
 //    final String version = versionOverride ?? flutterVersion.getVersionString(redactUnknownBranches: true);
-    final String version = '0.6.0';
+    final String version = '0.6.0'; // todo: replace with actual
+
     final bool suppressEnvFlag =
         platform.environment['FLUTTER_SUPPRESS_ANALYTICS'] == 'true';
     final String logFilePath =
